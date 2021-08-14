@@ -6,10 +6,9 @@
 package com.henrique.algamoney.api.resource;
 
 import com.henrique.algamoney.api.event.RecursoCriadoEvent;
-import com.henrique.algamoney.api.model.Categoria;
-import com.henrique.algamoney.api.repository.CategoriaRepository;
+import com.henrique.algamoney.api.model.Pessoa;
+import com.henrique.algamoney.api.repository.PessoaRepository;
 import java.net.URI;
-
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
@@ -30,37 +29,41 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  *
  * @author joaoh
  */
-@RestController //controlador Rest
-@RequestMapping("/categorias")
-public class CategoriaResource {
+@RestController
+@RequestMapping("/pessoas")
+public class PessoaResource {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
-
+    private PessoaRepository pessoaRepository;
+    
     @Autowired
     private ApplicationEventPublisher publisher;
 
     @GetMapping
-    public List<Categoria> listar() {
-        return categoriaRepository.findAll();
+    public List<Pessoa> listarPessoas() {
+        return pessoaRepository.findAll();
     }
 
     @GetMapping("/{codigo}")
-    public ResponseEntity<?> buscarPeloCodigo(@PathVariable Long codigo) {
-        Optional<Categoria> categoria = categoriaRepository.findById(codigo);
-        if (categoria.isEmpty()) {
+    public ResponseEntity<?> listarPessoa(@PathVariable Long codigo) {
+
+        Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
+
+        if (pessoa.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.status(HttpStatus.OK).body(categoria);
+
+        return ResponseEntity.status(HttpStatus.OK).body(pessoa);
+
     }
 
     @PostMapping
-    public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
-        Categoria categoriaSalva = categoriaRepository.save(categoria);
+    public ResponseEntity<Pessoa> criarPessoa(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
+        Pessoa pessoaSalva = pessoaRepository.save(pessoa);
 
-        publisher.publishEvent(new RecursoCriadoEvent(this, response, categoriaSalva.getCodigo()));
+        publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCodigo()));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
+
     }
-    
 }
