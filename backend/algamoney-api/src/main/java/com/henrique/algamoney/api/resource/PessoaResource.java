@@ -50,7 +50,7 @@ public class PessoaResource {
     }
 
     @GetMapping("/{codigo}")
-    public ResponseEntity<?> listarPessoa(@PathVariable Long codigo) {
+    public ResponseEntity<?> buscarPeloCodigo(@PathVariable Long codigo) {
 
         Optional<Pessoa> pessoa = pessoaRepository.findById(codigo);
 

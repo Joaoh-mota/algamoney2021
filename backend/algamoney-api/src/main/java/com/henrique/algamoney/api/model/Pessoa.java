@@ -50,7 +50,7 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public boolean getAtivo() {
+    public Boolean getAtivo() {
         return ativo;
     }
 
