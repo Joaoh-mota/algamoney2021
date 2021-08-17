@@ -5,6 +5,7 @@
  */
 package com.henrique.algamoney.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 /**
  *
@@ -52,6 +54,12 @@ public class Pessoa {
 
     public Boolean getAtivo() {
         return ativo;
+    }
+    
+    @JsonIgnore
+    @Transient
+    public Boolean isInativo() {
+        return !this.ativo;
     }
 
     public void setAtivo(Boolean ativo) {
