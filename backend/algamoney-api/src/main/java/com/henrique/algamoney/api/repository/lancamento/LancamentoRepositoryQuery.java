@@ -7,12 +7,13 @@ package com.henrique.algamoney.api.repository.lancamento;
 
 import com.henrique.algamoney.api.model.Lancamento;
 import com.henrique.algamoney.api.repository.filter.LancamentoFilter;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
  * @author joaoh
  */
 public interface LancamentoRepositoryQuery {
-    public List<Lancamento> filtrar (LancamentoFilter lancamentoFilter);
+    public Page<Lancamento> filtrar (LancamentoFilter lancamentoFilter, Pageable pageable);
 }

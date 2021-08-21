@@ -9,10 +9,12 @@ import com.henrique.algamoney.api.event.RecursoCriadoEvent;
 import com.henrique.algamoney.api.model.Pessoa;
 import com.henrique.algamoney.api.repository.PessoaRepository;
 import com.henrique.algamoney.api.service.PessoaService;
+
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -28,7 +30,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
  * @author joaoh
  */
 @RestController
@@ -86,8 +87,8 @@ public class PessoaResource {
 
     @PutMapping("/{codigo}/ativo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo){
-        pessoaService.atualizarPropriedadeAtivo(codigo,ativo);
+    public void atualizarPropriedadeAtivo(@PathVariable Long codigo, @RequestBody Boolean ativo) {
+        pessoaService.atualizarPropriedadeAtivo(codigo, ativo);
     }
 
 }
