@@ -10,6 +10,7 @@ import com.henrique.algamoney.api.exceptionhandler.AlgamoneyExceptionHandler.Err
 import com.henrique.algamoney.api.model.Lancamento;
 import com.henrique.algamoney.api.repository.LancamentoRepository;
 import com.henrique.algamoney.api.repository.filter.LancamentoFilter;
+import com.henrique.algamoney.api.repository.projection.ResumoLancamento;
 import com.henrique.algamoney.api.service.LancamentoService;
 import com.henrique.algamoney.api.service.exception.PessoaInexistenteOuInativaException;
 import java.util.Arrays;
@@ -50,6 +51,11 @@ public class LancamentoResource {
     @GetMapping
     public Page<Lancamento> listarLancamentos(LancamentoFilter lancamentoFilter, Pageable pageable) {
         return lancamentoRepository.filtrar(lancamentoFilter, pageable);
+    }
+
+    @GetMapping(params = "resumo")
+    public Page<ResumoLancamento> resumirLancamentos(LancamentoFilter lancamentoFilter, Pageable pageable) {
+        return lancamentoRepository.resumir(lancamentoFilter, pageable);
     }
 
     @GetMapping("/{codigo}")
